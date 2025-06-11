@@ -1,0 +1,124 @@
+/* -------------------------------
+   0) Make root fill viewport
+--------------------------------- */
+html, body, #root {
+  margin: 0; padding: 0;
+  width: 100%; height: 100%;
+  box-sizing: border-box;
+}
+
+/* -------------------------------
+   1) Container holds two areas:
+      - .header-search (fixed)
+      - .book-list    (flexibly fills rest)
+--------------------------------- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;             /* entire viewport height */
+  overflow: hidden;          /* prevent page scroll */
+}
+
+/* -------------------------------
+   2) FIXED header+search at top
+--------------------------------- */
+.header-search {
+  position: fixed;         
+  top: 0;                  
+  left: 0;                 /* stick the left edge to the screen’s left */
+  right: 0;                /* stick the right edge to the screen’s right */
+  display: flex;           
+  flex-direction: column;  
+  align-items: center;     /* now this really *centers* the children within the full-width bar */
+
+  padding: 1rem 0;         /* give it some height */
+  box-sizing: border-box;  
+
+  z-index: 10;
+}
+
+
+/* 2a) Header: icon + title side by side */
+.header {
+  display: flex;           
+  align-items: center;     /* vertical centering */
+  justify-content: center; /* horizontal centering */
+  margin-bottom: 0.5rem;   /* gap before the search input */
+}
+.header-icon {
+  font-size: 3rem;         /* fixed icon size */
+  margin-right: 0.5rem;    /* space to the 
+  title */
+  
+}
+.title {
+  font-size: 4rem;         
+  margin: 0;               /* remove default heading margins */
+}
+
+
+/* 2b) Search bar: fixed size so typing never resizes it */
+.search-bar {
+  width: 400px;              /* locked width */
+  height: 2.5rem;            /* locked height */
+  padding: 0.5rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: block;            /* ensure margins work if you add them */
+  margin: 0 auto;            /* center under the header */
+}
+
+/* -------------------------------
+   3) Scrollable book grid below
+--------------------------------- */
+.book-list {
+  /* give it all the space below header-search */
+  flex: 1;                   /* fill remaining vertical space */
+  margin-top: 200px;         /* = approx header-search total height */
+  overflow-y: auto;          /* scroll if content overflows */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  background: rgb(0, 0, 0);
+  box-sizing: border-box;
+}
+
+/* -------------------------------
+   4) Book card styling
+--------------------------------- */
+.book-card {
+  background: #333;
+  color: #eee;
+  border: 2px solid #555;
+  border-radius: 4px;
+  padding: 1rem;
+  width: 200px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.book-card.selected {
+  border-color: red;
+}
+.book-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+.book-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* -------------------------------
+   5) Loading state
+--------------------------------- */
+.loading {
+  text-align: center;
+  margin: auto;
+  font-size: 1.2rem;
+}
